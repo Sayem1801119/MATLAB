@@ -1,0 +1,68 @@
+clc;
+clear all;
+syms x
+% Give the function
+ 
+f(x)=input('Function=');
+% bisection method gives at least one root of the given function in an
+% predefined interval
+p=input('Lower Limit, p=');
+q=input('Upper Limit, q=');
+m=input('Highest degree, m='); 
+if m==2
+    g=input('Interval Region: 0 for positive and 1 for negative, g=');
+    for(i=p:q)
+     if g==0 
+     if f(i)<0
+        y=i;
+     end 
+     if f(i)>0
+       w=i;
+       break
+     end
+     end
+     if g==1 
+     if f(i)>0
+       w=i;
+     end
+     if f(i)<0
+        y=i;
+        break
+     end 
+     end
+    end
+end
+if m==3
+   for(i=p:q)
+     if f(i)<0
+        y=i; 
+     end
+     if f(i)>0
+       w=i;
+       break
+     end
+    end
+end
+% The root between the interval lies between the two marginal points.
+% These are-
+Marginal_Point_of_negative_output=y
+Marginal_Point_of_positive_output=w
+% If the root is a integer number then r is one of the root of the function
+% in the interval
+r=(y+w)/2
+for(j=1:10000)
+if f(y)*f(w)<0
+    y=y;
+    w=r;
+    r=(y+w)/2;
+    for(k=1:10000)
+if f(y)*f(w)>0
+    y=r;
+    w=w;
+    r=(y+w)/2;
+end
+    end
+
+end
+end
+disp(r)
