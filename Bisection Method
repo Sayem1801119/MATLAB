@@ -8,7 +8,8 @@ f(x)=input('Function=');
 % predefined interval
 p=input('Lower Limit, p=');
 q=input('Upper Limit, q=');
-m=input('Highest degree, m='); 
+m=input('Highest degree, m=');
+e=input('Acceptable error, e=');
 if m==2
     g=input('Interval Region: 0 for positive and 1 for negative, g=');
     for(i=p:q)
@@ -49,20 +50,22 @@ Marginal_Point_of_negative_output=y
 Marginal_Point_of_positive_output=w
 % If the root is a integer number then r is one of the root of the function
 % in the interval
-r=(y+w)/2
-for(j=1:10000)
-if f(y)*f(w)<0
-    y=y;
-    w=r;
+for(j=2:1000)
     r=(y+w)/2;
-    for(k=1:10000)
-if f(y)*f(w)>0
+if f(w)*f(r)<0
     y=r;
-    w=w;
-    r=(y+w)/2;
+else
+    w=r;
 end
-    end
-
+if f(y)*f(r)<0
+    w=r;
+else
+    y=r;
+end
+rcom(1)=0;
+rcom(j)=r;
+if abs((rcom(j)-rcom(j-1))/rcom(j))<e
+    break
 end
 end
-disp(r)
+Root=['Root in the given interval: ', num2str(r), '']
